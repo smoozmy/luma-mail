@@ -1,0 +1,78 @@
+{
+  "name": "posta",
+  "version": "0.4.1",
+  "private": true,
+  "description": "Personal multi-account inbox for Windows 11",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smoozmy/luma-mail.git"
+  },
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "start": "npm run build && electron .",
+    "build": "vite build",
+    "test": "node --test tests/*.test.cjs",
+    "dist:win": "npm run build && electron-builder --win nsis zip --x64 --publish never",
+    "dist:win:zip": "npm run build && electron-builder --win zip --x64 --publish never",
+    "demo": "npm run build && electron . --demo",
+    "postinstall": "node node_modules/electron/install.js"
+  },
+  "build": {
+    "appId": "personal.posta.mail",
+    "productName": "Luma Почта",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json",
+      "assets/**/*",
+      "shared/**/*"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ],
+      "icon": "assets/icon.ico",
+      "signExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "smoozmy",
+      "repo": "luma-mail",
+      "releaseType": "release"
+    },
+    "mac": {
+      "identity": null,
+      "icon": "assets/icon.png"
+    }
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "electron-updater": "^6.8.11",
+    "fast-xml-parser": "^5.3.0",
+    "httpntlm": "^1.8.14",
+    "imapflow": "^2.5.6",
+    "lucide-react": "^1.59.0",
+    "mailparser": "^3.9.46",
+    "nodemailer": "^10.1.7",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sanitize-html": "^2.18.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.2",
+    "electron": "^44.9.0",
+    "electron-builder": "^26.15.3",
+    "vite": "^8.3.4"
+  },
+  "author": "Personal"
+}
